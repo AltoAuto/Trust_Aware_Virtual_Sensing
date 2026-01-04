@@ -20,9 +20,14 @@ Estimate **CO₂ generation rate** G(t) (preferred over headcount) and related l
 under sensor drift, missing data, and messy BAS signals.
 
 ## Dataset
-Uses the **LBNL Building 59** dataset (3 years of BAS-style data) 
-The dataset includes cleaned time-series CSVs plus a Brick model (.ttl) and metadata JSON (three-layer structure)
-"https://datadryad.org/dataset/doi:10.7941/D1N33Q"
+
+This project uses the **LBNL Building 59** dataset (Dryad, **DOI: 10.7941/D1N33Q**), a curated **3-year** BAS-style operational dataset from an **office building (built 2015) in Berkeley, CA**. The dataset covers HVAC operating conditions, indoor/outdoor environmental variables, energy/end-use metering, and occupant counts, collected from **300+ sensors/meters** across two office floors.
+
+### What’s included (from the Dryad release)
+- `Building_59.zip` — cleaned time-series CSVs + Brick model (`.ttl`) + metadata JSON
+- `data_description_table_3year_clean_data.xlsx` — per-point catalog (file/column descriptions, units, missingness, availability)
+- `metadata_Dryad_Bldg59.docx` and `README_Dryad_Bldg59.txt` — dataset notes and structure :contentReference[oaicite:2]{index=2}
+
 
 ## Roadmap (Layers)
 - Layer 0 — point contract: map Brick points → (file, time_col, value_col) and export a canonical table
@@ -40,4 +45,13 @@ The dataset includes cleaned time-series CSVs plus a Brick model (.ttl) and meta
 - Layer 4 results: CO₂ constraint satisfaction vs energy proxy + baseline comparisons
 
 ## Citation
-"https://datadryad.org/dataset/doi:10.7941/D1N33Q"
+If you use the dataset, please cite the Dryad dataset record:
+
+Hong, Tianzhen; Luo, Na; Blum, David; Wang, Zhe (2022).
+*A three-year building operational performance dataset for informing energy efficiency* .
+
+If you reference the dataset description / methodology, also cite the companion data descriptor paper:
+
+Luo, N., Wang, Z., Blum, D., et al. (2022).
+*A three-year dataset supporting research on building energy management and occupancy analytics*.
+Scientific Data, 9, 156. **DOI: 10.1038/s41597-022-01257-x**.
