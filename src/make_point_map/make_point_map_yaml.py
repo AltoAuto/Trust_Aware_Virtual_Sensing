@@ -21,9 +21,7 @@ import numpy as np
 from rdflib import Graph
 from rdflib.namespace import RDF
 
-# =========================
-# EDIT THESE SETTINGS
-# =========================
+
 DATA_DIR = Path(r"D:\Trust-Aware Virtual Sensing and Supervisory Control for Smart Buildings\Building_59_dataset\Building_59")
 TTL_PATH  = DATA_DIR / "Bldg59_w_occ Brick model.ttl"
 
@@ -33,9 +31,9 @@ ZONE_NAME  = "zone_062"
 TIMEZONE   = "America/Los_Angeles"
 SAMPLING   = "1min"
 
-# Final output YAML (single file)
+# YAML 
 OUT_YAML   = Path(r"D:\Trust-Aware Virtual Sensing and Supervisory Control for Smart Buildings\make_point_map\point_contract.yaml")
-# =========================
+
 
 # Prefer clean-data folder if it exists
 CLEAN_DIR = DATA_DIR / "Bldg59_clean data"
@@ -43,7 +41,6 @@ CSV_ROOT = CLEAN_DIR if CLEAN_DIR.exists() else DATA_DIR
 
 TIME_COL_CANDIDATES = ["timestamp", "time", "ts", "datetime", "date_time", "DateTime", "Date", "Time"]
 
-# If True, try to infer sign for pressure-like points by looking at data median.
 INFER_SIGN_FOR_PRESSURE = True
 SIGN_SAMPLE_ROWS = 200_000
 
@@ -201,7 +198,6 @@ def pick_canonical_signals(bundle, mapped_brick_points):
 # -------------------------
 # Excel lookup + enrichment
 # -------------------------
-
 def load_excel_lut(excel_path: Path):
     df = pd.read_excel(excel_path)
     df["File name"] = df["File name"].ffill()
@@ -255,7 +251,6 @@ def default_resample(role: str) -> str:
 
 def units_and_convert(unit: str):
     u = unit.strip().lower()
-    # you can extend this mapping
     if u in ("f", "degf", "°f"):
         return ("F", "C", "F_to_C")
     if u in ("c", "degc", "°c"):
@@ -272,7 +267,6 @@ def units_and_convert(unit: str):
         return ("kW", "kW", "")
     if u in ("ppm",):
         return ("ppm", "ppm", "")
-    # unknown → passthrough
     return (unit, unit, "")
 
 PRESSURE_KEYS = ["dp", "press", "pressure", "static", "plenum", "filter", "fltr"]
@@ -407,3 +401,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
