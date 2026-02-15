@@ -5,7 +5,7 @@ import pandas as pd
 import yaml
 
 # ==========================
-# EDIT THESE 3 PATHS ONLY
+# Path File
 # ==========================
 DATA_DIR = Path(r"D:\Trust-Aware Virtual Sensing and Supervisory Control for Smart Buildings\Building_59_dataset\Building_59\Bldg59_clean data")
 YAML_PATH = Path(r"D:\Trust-Aware Virtual Sensing and Supervisory Control for Smart Buildings\make_point_map\point_contract.yaml")
@@ -76,9 +76,7 @@ def _apply_convert(s: pd.Series, convert: str | None) -> pd.Series:
         # 0–100 (%) -> 0–1 (frac)
         return s / 100.0
 
-    # extend here if needed.
-
-    # For safety, do not silently change units for unknown rules:
+    # For safety
     raise ValueError(f"Unknown convert rule: '{rule}'")
 
 
@@ -134,7 +132,7 @@ def _export_layer0_contract_excel(
         columns={"min": "min", "5%": "p05", "50%": "p50", "95%": "p95", "max": "max", "count": "count"}
     )
 
-    # First/last valid timestamp per column (cheap enough; OK for ~thousands of cols)
+    # First/last valid timestamp per column
     first_valid = {}
     last_valid = {}
     for c in df0.columns:
@@ -159,10 +157,10 @@ def _export_layer0_contract_excel(
         }
     )
 
-    # Merge stats into contract (left join; contract may include points not loaded)
+    # Merge stats into contract 
     merged_df = contract_df.merge(stats_df, how="left", left_on="signal", right_on="signal")
 
-    # Add global context columns (helpful when you open Excel later)
+    # Add global context columns
     merged_df.insert(0, "zone", zone)
     merged_df.insert(1, "timezone", tz)
     merged_df.insert(2, "sampling", dt)
@@ -285,3 +283,4 @@ def build_layer0():
 
 if __name__ == "__main__":
     build_layer0()
+
